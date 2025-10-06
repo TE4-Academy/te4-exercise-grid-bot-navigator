@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nivå 1: Robot Logik Test</title>
+  <style>
+    body {
+      font-family: 'Courier New', monospace;
+      background-color: #1e1e1e;
+      color: #d4d4d4;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    h1 {
+      color: #4ec9b0;
+    }
+    .test {
+      margin: 1rem 0;
+      padding: 0.5rem;
+      border-left: 3px solid #4ec9b0;
+      background-color: #2d2d2d;
+    }
+    .pass {
+      border-left-color: #4ec9b0;
+    }
+    .fail {
+      border-left-color: #f48771;
+    }
+    code {
+      background-color: #3c3c3c;
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🤖 Robot Logik Test - Nivå 1</h1>
+  <p>Öppna konsolen (F12) för att se testresultaten.</p>
+  <p>Alla tester ska visa ✅ när din kod är korrekt.</p>
+
+  <div id="results"></div>
+
+  <script src="robot.js"></script>
+  <script>
+    // Testramverk
+    const results = [];
+
+    function test(description, assertion) {
+      try {
+        const passed = assertion();
+        const symbol = passed ? '✅' : '❌';
+        const message = `${symbol} ${description}`;
+        console.log(message);
+        results.push({ description, passed, message });
+        return passed;
+      } catch (error) {
+        const message = `❌ ${description} (Fel: ${error.message})`;
+        console.error(message);
+        results.push({ description, passed: false, message, error });
+        return false;
+      }
+    }
+
+    function assertEqual(actual, expected, message) {
+      if (actual !== expected) {
+        throw new Error(`${message}. Förväntat: ${expected}, Fick: ${actual}`);
+      }
+      return true;
+    }
+
+    // Tester
+    console.log('🧪 Kör tester...\n');
+
+    // Test 1: Initial state
+    test('Test 1: Robot börjar på (0, 0) och tittar NORTH', () => {
+      return robot.x === 0 && robot.y === 0 && robot.direction === 'NORTH';
+    });
+
+    // Test 2: moveForward från NORTH
+    robot.moveForward();
+    test('Test 2: Efter moveForward() från NORTH är roboten på (0, 1)', () => {
+      return robot.x === 0 && robot.y === 1;
+    });
+
+    // Test 3: turnRight
+    robot.turnRight();
+    test('Test 3: Efter turnRight() från NORTH tittar roboten EAST', () => {
+      return robot.direction === 'EAST';
+    });
+
+    // Test 4: moveForward från EAST
+    robot.moveForward();
+    test('Test 4: Efter moveForward() från EAST är roboten på (1, 1)', () => {
+      return robot.x === 1 && robot.y === 1;
+    });
+
+    // Test 5: turnRight igen
+    robot.turnRight();
+    test('Test 5: Efter turnRight() från EAST tittar roboten SOUTH', () => {
+      return robot.direction === 'SOUTH';
+    });
+
+    // Test 6: turnLeft
+    robot.turnLeft();
+    test('Test 6: Efter turnLeft() från SOUTH tittar roboten EAST', () => {
+      return robot.direction === 'EAST';
+    });
+
+    // Test 7: Full rotation höger
+    robot.direction = 'NORTH';
+    robot.turnRight();
+    robot.turnRight();
+    robot.turnRight();
+    robot.turnRight();
+    test('Test 7: Efter 4x turnRight() är roboten tillbaka på NORTH', () => {
+      return robot.direction === 'NORTH';
+    });
+
+    // Test 8: Full rotation vänster
+    robot.direction = 'NORTH';
+    robot.turnLeft();
+    robot.turnLeft();
+    robot.turnLeft();
+    robot.turnLeft();
+    test('Test 8: Efter 4x turnLeft() är roboten tillbaka på NORTH', () => {
+      return robot.direction === 'NORTH';
+    });
+
+    // Test 9: Rörelse åt alla håll
+    robot.x = 5;
+    robot.y = 5;
+    robot.direction = 'NORTH';
+    robot.moveForward(); // (5, 6)
+    robot.turnRight(); // EAST
+    robot.moveForward(); // (6, 6)
+    robot.turnRight(); // SOUTH
+    robot.moveForward(); // (6, 5)
+    robot.turnRight(); // WEST
+    robot.moveForward(); // (5, 5)
+    test('Test 9: Efter en kvadrat är roboten tillbaka på (5, 5)', () => {
+      return robot.x === 5 && robot.y === 5;
+    });
+
+    // Sammanfattning
+    const totalTests = results.length;
+    const passedTests = results.filter(r => r.passed).length;
+    
+    console.log(`\n${'='.repeat(50)}`);
+    console.log(`📊 Resultat: ${passedTests}/${totalTests} tester godkända`);
+    
+    if (passedTests === totalTests) {
+      console.log('🎉 Grattis! Alla tester är gröna. Du är redo för Nivå 2!');
+    } else {
+      console.log('⚠️  Vissa tester misslyckades. Läs felmeddelandena ovan och försök igen.');
+    }
+    console.log('='.repeat(50));
+
+    // Visa resultat på sidan också
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = `
+      <h2>Testresultat: ${passedTests}/${totalTests}</h2>
+      ${results.map(r => `
+        <div class="test ${r.passed ? 'pass' : 'fail'}">
+          ${r.message}
+        </div>
+      `).join('')}
+    `;
+  </script>
+</body>
+</html>
