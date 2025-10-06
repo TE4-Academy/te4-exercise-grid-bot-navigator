@@ -1,0 +1,10 @@
+{
+  "name": "Slingrig väg",
+  "description": "En komplex rutt med många svängar",
+  "difficulty": "Svår",
+  "commands": [
+    "FORWARD", "RIGHT", "FORWARD", "LEFT", "FORWARD", "FORWARD",
+    "LEFT", "FORWARD", "RIGHT", "FORWARD", "LEFT", "FORWARD",
+    "RIGHT", "FORWARD", "FORWARD", "LEFT", "FORWARD"
+  ]
+}

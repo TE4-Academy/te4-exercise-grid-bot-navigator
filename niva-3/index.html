@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nivå 3: API-fjärrstyrning</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .grid-cell {
+      aspect-ratio: 1;
+    }
+    
+    .robot {
+      transition: all 0.3s ease-in-out;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .executing {
+      animation: pulse 1s infinite;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white p-8">
+  
+  <div class="max-w-6xl mx-auto">
+    
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold text-blue-400 mb-2">🤖 Grid-Bot Navigator</h1>
+      <p class="text-gray-400">Nivå 3: API-fjärrstyrning</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      
+      <!-- Vänster kolumn: Rutnätet -->
+      <div>
+        <h2 class="text-xl font-semibold mb-4">Navigationsrutnät</h2>
+        
+        <div id="grid" class="grid grid-cols-10 gap-0.5 bg-gray-700 p-1 rounded mb-4">
+          <!-- Celler skapas av JavaScript -->
+        </div>
+
+        <!-- Status Display -->
+        <div class="bg-gray-800 p-4 rounded-lg">
+          <h3 class="text-sm text-gray-400 mb-2">Status</h3>
+          <div id="status" class="font-mono text-lg">
+            <div>X: <span id="x-display" class="text-blue-400">0</span></div>
+            <div>Y: <span id="y-display" class="text-blue-400">0</span></div>
+            <div>Riktning: <span id="direction-display" class="text-blue-400">NORTH</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Höger kolumn: Uppdragskontroll -->
+      <div>
+        <h2 class="text-xl font-semibold mb-4">Uppdragskontroll</h2>
+        
+        <!-- Uppdragsinformation -->
+        <div id="mission-info" class="bg-gray-800 p-4 rounded-lg mb-4 min-h-32">
+          <p class="text-gray-400 text-center">Inget uppdrag valt</p>
+        </div>
+
+        <!-- Uppdragsval -->
+        <div class="space-y-3 mb-6">
+          <button id="mission-1-btn" class="w-full py-3 px-4 rounded-lg font-bold bg-indigo-600 hover:bg-indigo-700">
+            🎯 Uppdrag 1: Utforska kratern
+          </button>
+          <button id="mission-2-btn" class="w-full py-3 px-4 rounded-lg font-bold bg-indigo-600 hover:bg-indigo-700">
+            🎯 Uppdrag 2: Rundtur kring basen
+          </button>
+          <button id="mission-3-btn" class="w-full py-3 px-4 rounded-lg font-bold bg-indigo-600 hover:bg-indigo-700">
+            🎯 Uppdrag 3: Slingrig väg
+          </button>
+          <button id="random-mission-btn" class="w-full py-3 px-4 rounded-lg font-bold bg-purple-600 hover:bg-purple-700">
+            🎲 Slumpmässigt uppdrag
+          </button>
+        </div>
+
+        <!-- Kontrollknappar -->
+        <div class="space-y-3 mb-6">
+          <button id="execute-btn" class="w-full py-3 px-4 rounded-lg font-bold text-lg bg-green-600 hover:bg-green-700" disabled>
+            ▶️ Starta uppdrag
+          </button>
+          <button id="stop-btn" class="w-full py-3 px-4 rounded-lg font-bold text-lg bg-red-600 hover:bg-red-700" disabled>
+            ⏹️ Stoppa
+          </button>
+          <button id="reset-btn" class="w-full py-3 px-4 rounded-lg font-bold text-lg bg-gray-600 hover:bg-gray-700">
+            🔄 Återställ robot
+          </button>
+        </div>
+
+        <!-- Progress -->
+        <div class="bg-gray-800 p-4 rounded-lg mb-4">
+          <div class="flex justify-between text-sm text-gray-400 mb-2">
+            <span>Framsteg</span>
+            <span id="progress-text">0/0</span>
+          </div>
+          <div class="w-full bg-gray-700 rounded-full h-2">
+            <div id="progress-bar" class="bg-blue-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- Instruktioner -->
+        <div class="bg-gray-800 p-4 rounded-lg">
+          <h3 class="text-sm text-gray-400 mb-2">💡 Instruktioner</h3>
+          <ul class="text-sm space-y-1 text-gray-300">
+            <li>• Välj ett uppdrag från listan</li>
+            <li>• Klicka "Starta uppdrag" för att köra</li>
+            <li>• Öppna konsolen (F12) för debug-information</li>
+            <li>• Du kan stoppa uppdraget när som helst</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="robot.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>

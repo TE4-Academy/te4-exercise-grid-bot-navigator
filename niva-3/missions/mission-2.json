@@ -1,0 +1,14 @@
+{
+  "name": "Rundtur kring basen",
+  "description": "Gör en kvadrat och kom tillbaka till start",
+  "difficulty": "Medel",
+  "commands": [
+    "FORWARD", "FORWARD", "FORWARD",
+    "RIGHT",
+    "FORWARD", "FORWARD", "FORWARD",
+    "RIGHT",
+    "FORWARD", "FORWARD", "FORWARD",
+    "RIGHT",
+    "FORWARD", "FORWARD", "FORWARD"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Utforska kratern",
+  "description": "Navigera till position (3, 2) och tillbaka",
+  "difficulty": "Lätt",
+  "commands": ["FORWARD", "FORWARD", "RIGHT", "FORWARD", "FORWARD", "FORWARD"]
+}
