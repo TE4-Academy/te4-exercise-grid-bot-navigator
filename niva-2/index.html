@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nivå 2: Grid-Bot Navigator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Extra styling för att göra rutnätet mer visuellt */
+    .grid-cell {
+      aspect-ratio: 1;
+    }
+    
+    .robot {
+      transition: all 0.3s ease-in-out;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Alternativ stil om du vill använda en pil istället för emoji */
+    .robot-arrow::before {
+      content: '▲';
+      font-size: 3rem;
+      color: #3b82f6;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white p-8">
+  
+  <div class="max-w-6xl mx-auto">
+    
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold text-blue-400 mb-2">🤖 Grid-Bot Navigator</h1>
+      <p class="text-gray-400">Nivå 2: Visualisering</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      
+      <!-- Vänster kolumn: Rutnätet -->
+      <div>
+        <h2 class="text-xl font-semibold mb-4">Navigationsrutnät</h2>
+        
+        <!-- TODO: Skapa ett 10x10 rutnät här -->
+        <!-- Tips: Använd 'grid grid-cols-10 gap-0.5 bg-gray-700 p-1 rounded' -->
+        <div id="grid" class="grid grid-cols-10 gap-0.5 bg-gray-700 p-1 rounded">
+          <!-- Celler kommer skapas här av JavaScript -->
+        </div>
+
+        <!-- Robot (placeras ovanpå rutnätet) -->
+        <!-- TODO: Skapa en div för roboten som kan flyttas och roteras -->
+        
+      </div>
+
+      <!-- Höger kolumn: Kontroller -->
+      <div>
+        <h2 class="text-xl font-semibold mb-4">Kontroller</h2>
+        
+        <!-- Status Display -->
+        <div class="bg-gray-800 p-4 rounded-lg mb-4">
+          <h3 class="text-sm text-gray-400 mb-2">Status</h3>
+          <div id="status" class="font-mono text-lg">
+            <div>X: <span id="x-display" class="text-blue-400">0</span></div>
+            <div>Y: <span id="y-display" class="text-blue-400">0</span></div>
+            <div>Riktning: <span id="direction-display" class="text-blue-400">NORTH</span></div>
+          </div>
+        </div>
+
+        <!-- Kontrollknappar -->
+        <div class="space-y-3">
+          
+          <!-- TODO: Skapa tre knappar här -->
+          <!-- Tips för styling: 'w-full py-3 px-4 rounded-lg font-bold text-lg' -->
+          
+          <button id="forward-btn" class="w-full py-3 px-4 rounded-lg font-bold text-lg bg-green-600 hover:bg-green-700">
+            ⬆️ Gå Framåt
+          </button>
+
+          <button id="right-btn" class="w-full py-3 px-4 rounded-lg font-bold text-lg bg-blue-600 hover:bg-blue-700">
+            ↪️ Sväng Höger
+          </button>
+
+          <button id="left-btn" class="w-full py-3 px-4 rounded-lg font-bold text-lg bg-purple-600 hover:bg-purple-700">
+            ↩️ Sväng Vänster
+          </button>
+
+          <button id="reset-btn" class="w-full py-3 px-4 rounded-lg font-bold text-lg bg-red-600 hover:bg-red-700">
+            🔄 Återställ
+          </button>
+        </div>
+
+        <!-- Instruktioner -->
+        <div class="mt-8 bg-gray-800 p-4 rounded-lg">
+          <h3 class="text-sm text-gray-400 mb-2">💡 Instruktioner</h3>
+          <ul class="text-sm space-y-1 text-gray-300">
+            <li>• Använd knapparna för att styra roboten</li>
+            <li>• Roboten kan röra sig inom rutnätet (0-9)</li>
+            <li>• Öppna konsolen (F12) för debug-information</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Importera robot-logiken från Nivå 1 -->
+  <script src="robot.js"></script>
+  
+  <!-- Din app-logik -->
+  <script src="app.js"></script>
+
+</body>
+</html>
